@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/react/16.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/3.0.2/antd.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/3.0.2/antd.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+    // <script>
+        const dataSourceTemp = [
+            {
+                key: '1',
+                name: '胡彦斌',
+                age: 32,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '2',
+                name: '胡彦祖22',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '3',
+                name: '胡彦祖33',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '4',
+                name: '胡彦祖44',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '5',
+                name: '胡彦祖55',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '6',
+                name: '胡彦祖66',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '7',
+                name: '胡彦祖77',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '8',
+                name: '胡彦祖88',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '9',
+                name: '胡彦祖99',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+            {
+                key: '10',
+                name: '胡彦祖10',
+                age: 42,
+                address: '西湖区湖底公园1号',
+            },
+        ];
+
+        const columns = [
+            {
+                title: '姓名',
+                dataIndex: 'name',
+                key: 'name',
+            },
+            {
+                title: '年龄',
+                dataIndex: 'age',
+                key: 'age',
+            },
+            {
+                title: '住址',
+                dataIndex: 'address',
+                key: 'address',
+            },
+        ];
+
+
+        class TableFenYe extends React.Component {
+            state = {
+                current: 1,
+                total: 50,
+                dataSource: dataSourceTemp,
+            };
+            onChange = page => {
+                console.log(page);
+                var arr = [];
+                for (var i = 0; i < dataSourceTemp.length; i++) {
+                    arr.push({ key: i, name: ('胡彦祖' + page + "-" + i), age: 42, address: '西湖区湖底公园1号' })
+                }
+                this.setState({
+                    current: page,
+                    dataSource: arr
+                });
+            };
+            onShowSizeChange=(current, pageSize)=> {
+                console.log(current, pageSize);
+                var arr = [];
+                for (var i = 0; i < dataSourceTemp.length; i++) {
+                    arr.push({ key: i, name: ('胡彦祖' + current + "-" + i), age: 42, address: '西湖区湖底公园1号' })
+                }
+                this.setState({
+                    current: current,
+                    dataSource: arr
+                });
+            }
+            render() {
+                return (
+                    <div>
+                        <antd.Table dataSource={this.state.dataSource} columns={columns} pagination={false}></antd.Table >
+                        <antd.Pagination total={this.state.total} current={this.state.current} onChange={this.onChange} onShowSizeChange={this.onShowSizeChange} showSizeChanger showQuickJumper />
+                    </div>
+                )
+            }
+        }
+
+        ReactDOM.render(
+            <TableFenYe></TableFenYe>
+            ,
+            document.getElementById('example')
+        );
+    </script>
+</body>
+
+</html>

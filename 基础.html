@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 基本js -->
+    <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+    <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <!-- 请求接口用到 -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="example"></div>
+    <script type="text/babel">
+    // <script>
+        const numbers = [1, 2, 3, 4, 5];
+        const listItems = numbers.map((numbers, i) =>
+            <li key={i}>{numbers}</li>
+        );
+        class Hello extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    date: new Date(),
+                    name: 'Hello world!',
+                    text: '',
+                };
+            }
+            componentDidMount() {
+                // this.serverRequest = $.get('https://api.github.com/users/octocat/gists', function (result) {
+                //     var lastGist = result[0];
+                //     this.setState({
+                //         text: lastGist.owner.login,
+                //     });
+                // }.bind(this));
+
+
+                $.ajax({
+                    url: 'https://api.github.com/users/octocat/gists',
+                    dataType: 'json',
+                    success: response => {
+                        console.log(response);
+                    },
+                    error: (xhr, status, error) => {
+                        console.log(error);
+                    }
+                })
+
+            }
+            componentWillUnmount() {
+                // this.serverRequest.abort();
+            }
+
+            handleClick(e) {
+                e.preventDefault();
+                console.log('链接被点击');
+            }
+            preventPop(name, e) {    //事件对象e要放在最后
+                e.preventDefault();
+                alert(name);
+            }
+            render() {
+                return (
+                    <div>hello
+                        <h2>现在是 {this.state.date.toLocaleTimeString()}.</h2>
+                        <p>我是从服务器获取的文字：{this.state.text}</p>
+                        <a href="#" onClick={this.handleClick}> 点我  </a><br />
+                        {/* 通过 bind() 方法传递参数。 */}
+                        <a href="https://reactjs.org" onClick={this.preventPop.bind(this, this.state.name)}>Click</a>
+                        <ul>{listItems}</ul>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(
+            <Hello></Hello>
+            ,
+            document.getElementById('example')
+        );
+    </script>
+</body>
+
+</html>
